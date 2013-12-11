@@ -19,7 +19,7 @@ set_user("E*******")
 valid_tasks()
 ```
 
-...Note: il est possible de valider les exercices individuellement avec la fonction `valid_<task>()`.
+4. Il est possible de valider les exercices individuellement avec la fonction `valid_<task>()`.
 ```python
 valid_stirling()
 ```
