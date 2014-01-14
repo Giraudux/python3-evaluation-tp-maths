@@ -370,3 +370,35 @@ def generate_primes(n=50000000, ppath="./prime_numbers.json"):
                 pr.append(i)
         json.dump(pr,pfile)
         pfile.close()
+
+class primes_async(threading.Thread):
+    def __init__(self, list_e, list_p):
+        threading.Thread.__init__(self)
+        self.list_e = list_e
+        self.list_p = list_p
+
+    def run(self):
+        while len(list_e) > 0:
+            try:
+                i = list_e.prop()
+                if primes([i]) == [True]:
+                    pr.append(i)
+            except IndexError:
+                break
+
+def generate_primes_async(n=50000000, ppath="./prime_numbers.json", nthreads=4):
+    with open(ppath, "w") as pfile:
+        list_e = list(range(3,n,2))
+        list_p = list()
+        list_p.append(2)
+        
+        list_t = list()
+        for i in range(nthreads):
+            t = primes_async(list_e, list_p)
+            t.start()
+            list_t.append(t)
+        for t in list_t:
+            t.join()
+        list_p.sort()
+        json.dump(list_p,pfile)
+        pfile.close()
