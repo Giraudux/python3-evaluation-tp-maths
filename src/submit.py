@@ -164,7 +164,7 @@ if __name__ == "__main__" :
 
 # Alexis Giraudet
 
-import math, json
+import math, json, threading
 
 def trivialtask(ls):
     ls.reverse()
@@ -378,11 +378,11 @@ class primes_async(threading.Thread):
         self.list_p = list_p
 
     def run(self):
-        while len(list_e) > 0:
+        while len(self.list_e) > 0:
             try:
-                i = list_e.prop()
+                i = self.list_e.pop()
                 if primes([i]) == [True]:
-                    pr.append(i)
+                    self.list_p.append(i)
             except IndexError:
                 break
 
