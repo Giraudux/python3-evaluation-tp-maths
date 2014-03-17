@@ -15,7 +15,7 @@ class matrix:
             self.data = array("d", [0]*(p*q))
 
     def __repr__(self):
-        return 'Point({self.p}, {self.q}, {self.data})'.format(self=self)
+        return "matrix({self.p}, {self.q}, {self.data})".format(self=self)
 
     def __str__(self):
         res = str()
