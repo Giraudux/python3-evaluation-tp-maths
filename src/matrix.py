@@ -6,11 +6,11 @@ from array import array
  * j, q = columns
 """
 class matrix:
-    def __init__(self, p, q, ls=None):
+    def __init__(self, p, q, data=None):
         self.p = p
         self.q = q
-        if((ls != None) and (len(ls) == (p*q))):
-            self.data = array("d", ls)
+        if isinstance(data, list):
+            self.from_list(data)
         else:
             self.data = array("d", [0]*(p*q))
 
@@ -64,6 +64,19 @@ class matrix:
             return res
         else:
             return None
+
+    def __eq__(self, other):
+        return (self.p == other.p) and (self.q == other.q) and (self.data == other.data)
+
+    def __ne__(self, other):
+        return not(self == other)
+
+    def from_list(data):
+        if(len(data) == (self.p*self.q)):
+            self.data = array("d", data)
+
+    def from_json(json):
+        return None
 
     def get_row(self, i):
         res = list()
