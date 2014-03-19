@@ -6,6 +6,7 @@ from array import array
  * j, q = columns
 """
 class matrix:
+
     def __init__(self, p, q, data=None):
         self.p = p
         self.q = q
@@ -71,11 +72,11 @@ class matrix:
     def __ne__(self, other):
         return not(self == other)
 
-    def from_list(data):
+    def from_list(self, data):
         if(len(data) == (self.p*self.q)):
             self.data = array("d", data)
 
-    def from_json(json):
+    def from_json(self, json):
         return None
 
     def get_row(self, i):
@@ -89,3 +90,22 @@ class matrix:
         for i in range(self.p):
             res.append(self[i,j])
         return res 
+
+"""
+ * Class lu_decomposition
+"""
+class lu_decomposition:
+
+    def __init__(self, a, in_place=True):
+        self.a = a
+        self.decompose()
+
+    def decompose(self):
+        for k in range(self.a.p-1):
+            for i in range(k+1,self.a.p):
+                self.a[i,k] = self.a[i,k]/self.a[k,k]
+                for j in range(k+1,self.a.p):
+                    self.a[i,j] = self.a[i,j]-self.a[i,k]*self.a[k,j]
+
+    def get_a(self):
+        return self.a
