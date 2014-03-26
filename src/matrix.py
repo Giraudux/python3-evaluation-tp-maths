@@ -45,7 +45,7 @@ class matrix:
 
     def __sub__(self, other):
         if((self._q == other._q) or (self._p == other._p)):
-            res = Matrix(self._p, self._q)
+            res = matrix(self._p, self._q)
             for i in range(self._p):
                 for j in range(self._q):
                     res[i,j] = self[i,j] - other[i,j]
@@ -120,4 +120,12 @@ class lu_decomposition:
                     self._lu[i,j] = self._lu[i,j]-self._lu[i,k]*self._lu[k,j]
 
     def resolve(self, b):
-        return None
+        b = matrix(b.get_p(), b.get_q(), b.get_data())
+        for n in range(self._lu.get_p()):
+            for i in range(n):
+                b[n,0] = b[n,0] - self._lu[n,i]*b[i,0]
+        for n in range(self._lu.get_p()-1,-1,-1):
+            for i in range(self._lu.get_p()-1,n,-1):
+                b[n,0] = b[n,0] - self._lu[n,i]*b[i,0]
+            b[n,0] = b[n,0]/self._lu[n,n]
+        return b
