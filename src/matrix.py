@@ -91,17 +91,25 @@ class matrix:
             res.append(self[i,j])
         return res 
 
+    def get_p(self):
+        return self._p
+
+    def get_q(self):
+        return self._q
+
+    def get_data(self):
+        return self._data.tolist()
+
 """
  * Class lu_decomposition
 """
 class lu_decomposition:
 
     def __init__(self, a, in_place=True):
-        if not in_place:
-            self._a = a
+        if in_place:
+            self._lu = a
         else:
-            self._a = None
-        self._lu = a
+            self._lu = matrix(a.get_p(), a.get_q(), a.get_data())
         self.decompose()
 
     def decompose(self):
@@ -111,5 +119,5 @@ class lu_decomposition:
                 for j in range(k+1,self._lu.get_p()):
                     self._lu[i,j] = self._lu[i,j]-self._lu[i,k]*self._lu[k,j]
 
-    def get_a(self):
-        return self._a
+    def resolve(self, b):
+        return None
